@@ -19,19 +19,19 @@ spring:
     username: hiyee
     password: slfl4861
     driver-class-name: com.mysql.cj.jdbc.Driver
-    jpa:
-      # 테스트용 데이터베이스 데이터를 resource 안에 넣을 수 있도록 설정(data.sql)
-      defer-datasource-initialization: true
-      # hibernate가 entity를 보고 ddl문을 자동으로 짜줌
-      hibernate.ddl-auto: create
-      show-sql: true
-      # 현재 설정은 jpa 구현체들은 포괄하는 spring의 추상적인 설정이라서
-      # hibernate에서만 있는 특징적인 property들을 설정을 해주는 부분이다.
-      properties:
-        # query 문을 예쁘게 formatting해서 보여주는 설정
-        hibernate.format_sql: true
-        # jpa 복잡한 연관관계가 매핑되어 있는 쿼리를 사용할 때 한번에 벌크로 select 해 올 수 있도록 하는 설정
-        hibernate.default_batch_fetch_size: 100
+  jpa:
+    # 테스트용 데이터베이스 데이터를 resource 안에 넣을 수 있도록 설정(data.sql)
+    defer-datasource-initialization: true
+    # hibernate가 entity를 보고 ddl문을 자동으로 짜줌
+    hibernate.ddl-auto: create
+    show-sql: true
+    # 현재 설정은 jpa 구현체들은 포괄하는 spring의 추상적인 설정이라서
+    # hibernate에서만 있는 특징적인 property들을 설정을 해주는 부분이다.
+    properties:
+      # query 문을 예쁘게 formatting해서 보여주는 설정
+      hibernate.format_sql: true
+      # jpa 복잡한 연관관계가 매핑되어 있는 쿼리를 사용할 때 한번에 벌크로 select 해 올 수 있도록 하는 설정
+      hibernate.default_batch_fetch_size: 100
   #  인메모리 데이터베이스로 사용할 h2의 웹 콘솔 사용 여부
   h2.console.enabled: false
   # resource에 만든 data.sql 작동 시기 설정
