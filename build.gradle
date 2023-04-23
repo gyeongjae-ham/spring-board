@@ -29,6 +29,13 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-rest'
     // Rest Repositories HAL Explorer - rest repository 기능을 쉽게 확인하고 테스트할 수 있는 라이브러리
     implementation 'org.springframework.data:spring-data-rest-hal-explorer'
+    // Thymeleaf
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    // Spring Security
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    // Spring Security & Thymeleaf 설정일 때만 붙는 라이브러리
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+
     // h2 db
     runtimeOnly 'com.h2database:h2'
     // mysql db
@@ -39,6 +46,8 @@ dependencies {
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     // lombok 관련
     annotationProcessor 'org.projectlombok:lombok'
+    // 사용자 커스텀 프로퍼티들도 문서화하고 ide 지원받을 수 있게 해주는 라이브러리
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
 
