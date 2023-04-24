@@ -4,6 +4,8 @@ import com.fastcampus.springboard.domain.Article;
 import com.fastcampus.springboard.domain.QArticle;
 import com.querydsl.core.types.dsl.DateTimeExpression;
 import com.querydsl.core.types.dsl.StringExpression;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.querydsl.binding.QuerydslBinderCustomizer;
@@ -16,6 +18,8 @@ public interface ArticleRepository extends
         QuerydslPredicateExecutor<Article>, // Entity 클래스 안의 모든 필드에 대한 기본 검사 기능 제공
         // 검색 기능을 커스터마이징하기 위한 기능 제공
         QuerydslBinderCustomizer<QArticle> {
+
+    Page<Article> findByTitle(String title, Pageable pageable);
 
     @Override
     default void customize(QuerydslBindings bindings, QArticle root) {

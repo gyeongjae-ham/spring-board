@@ -20,6 +20,10 @@ spring:
     password: slfl4861
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
+    # 영속성 컨텍스트 세션이 Service 레이어까지만 살아있도록 false로 설정
+    # true로 하면 controller 단에서 영속성 컨텍스트를 자유롭게 사용할 수 있는 이점이 있으나
+    # database connection pool이 부족할 수도 있는 문제가 있다, 서비스 상황에 맞게 설정해서 쓸 것
+    open-in-view: false
     # 테스트용 데이터베이스 데이터를 resource 안에 넣을 수 있도록 설정(data.sql)
     defer-datasource-initialization: true
     # hibernate가 entity를 보고 ddl문을 자동으로 짜줌
