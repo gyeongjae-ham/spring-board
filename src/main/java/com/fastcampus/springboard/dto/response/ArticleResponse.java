@@ -1,4 +1,4 @@
-package com.fastcampus.springboard.response;
+package com.fastcampus.springboard.dto.response;
 
 import com.fastcampus.springboard.dto.ArticleDto;
 
