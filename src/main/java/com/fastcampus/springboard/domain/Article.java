@@ -10,7 +10,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @Getter // 전체 레벨에서는 Setter를 설정하지 말자(데이터 보호를 위해서 필요한 값만)
-@ToString // 쉽게 볼 수 있도록
+@ToString(callSuper = true) // 쉽게 볼 수 있도록, AuditingField 안까지 들어가서 잘 찍히도록 설정
 @Table(indexes = { // 빠르게 검색할 수 있도록 인덱스 설정
         @Index(columnList = "title"),
         @Index(columnList = "hashtag"),
@@ -23,6 +23,10 @@ public class Article extends AuditingFields {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Setter
+    @ManyToOne(optional = false)
+    private UserAccount userAccount;
 
     @Setter
     @Column(nullable = false)
@@ -39,22 +43,23 @@ public class Article extends AuditingFields {
     // mappedBy를 하지 않으면 양방향 관계의 두 테이블명을 합쳐서 테이블을 생성한다
     // mappedBy로 article 테이블로부터 온 것이라고 표시해 주기
     @ToString.Exclude // 순환 참조의 가능성이 있으므로 양방향 중에서 보통 one의 쪽에서 끊어준다
-    @OrderBy("id")
+    @OrderBy("createdAt DESC")
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
     private final Set<ArticleComment> articleComments = new LinkedHashSet<>();
     protected Article() {
     }
 
     // private 제어자로 막아놓고 팩토리 메서드로 편리하게 바로 생성하자
-    private Article(String title, String content, String hashtag) {
+    private Article(UserAccount userAccount, String title, String content, String hashtag) {
+        this.userAccount = userAccount;
         this.title = title;
         this.content = content;
         this.hashtag = hashtag;
     }
 
     // 팩토리 메서드
-    public static Article of(String title, String content, String hashtag) {
-        return new Article(title, content, hashtag);
+    public static Article of(UserAccount userAccount, String title, String content, String hashtag) {
+        return new Article(userAccount, title, content, hashtag);
     }
 
     // 그냥 lombok의 EqualsAndHashCode를 사용하면 전체 필드를 비교하기 때문에
