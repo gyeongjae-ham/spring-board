@@ -2,6 +2,7 @@ package com.fastcampus.springboard.repository;
 
 import com.fastcampus.springboard.domain.Article;
 import com.fastcampus.springboard.domain.QArticle;
+import com.fastcampus.springboard.repository.querydsl.ArticleRepositoryCustom;
 import com.querydsl.core.types.dsl.DateTimeExpression;
 import com.querydsl.core.types.dsl.StringExpression;
 import org.springframework.data.domain.Page;
@@ -16,17 +17,14 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 public interface ArticleRepository extends
         JpaRepository<Article, Long>,
         QuerydslPredicateExecutor<Article>, // Entity 클래스 안의 모든 필드에 대한 기본 검사 기능 제공
+        ArticleRepositoryCustom,
         // 검색 기능을 커스터마이징하기 위한 기능 제공
         QuerydslBinderCustomizer<QArticle> {
 
     Page<Article> findByTitleContaining(String title, Pageable pageable);
-
     Page<Article> findByContentContaining(String content, Pageable pageable);
-
     Page<Article> findByUserAccount_UserIdContaining(String userId, Pageable pageable);
-
     Page<Article> findByUserAccount_NicknameContaining(String nickname, Pageable pageable);
-
     Page<Article> findByHashtag(String hashtag, Pageable pageable);
 
     @Override
