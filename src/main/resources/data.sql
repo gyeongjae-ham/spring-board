@@ -3,6 +3,9 @@
 insert into user_account (user_id, user_password, nickname, email, memo, created_at, created_by, modified_at, modified_by) values
     ('Luca', 'asdf1234', 'Luca', 'luca@mail.com', 'I am Luca.', now(), 'luca', now(), 'luca')
 ;
+insert into user_account (user_id, user_password, nickname, email, memo, created_at, created_by, modified_at, modified_by) values
+    ('Luca2', 'asdf1234', 'Luca2', 'luca2@mail.com', 'I am Luca2.', now(), 'luca2', now(), 'luca2')
+;
 
 -- 123 게시글
 insert into article (user_account_id, title, content, hashtag, created_by, modified_by, created_at, modified_at) values
