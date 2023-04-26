@@ -7,7 +7,6 @@ import com.fastcampus.springboard.dto.ArticleDto;
 import com.fastcampus.springboard.dto.ArticleWithCommentsDto;
 import com.fastcampus.springboard.dto.UserAccountDto;
 import com.fastcampus.springboard.repository.ArticleRepository;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -146,7 +145,7 @@ class ArticleServiceTest {
         sut.updateArticle(dto);
 
         // Then
-        Assertions.assertThat(article)
+        assertThat(article)
                 .hasFieldOrPropertyWithValue("title", dto.title())
                 .hasFieldOrPropertyWithValue("content", dto.content())
                 .hasFieldOrPropertyWithValue("hashtag", dto.hashtag());
@@ -180,6 +179,21 @@ class ArticleServiceTest {
 
         // Then
         then(articleRepository).should().deleteById(articleId);
+    }
+
+    @DisplayName("[Service] 게시글 수를 조회하면, 게시글 수를 반환한다")
+    @Test
+    void givenNothing_whenCoutingArticles_thenReturnsArticleCount() {
+        // Given
+        long expected = 0L;
+        given(articleRepository.count()).willReturn(expected);
+
+        // When
+        long actual = sut.getArticleCount();
+
+        // Then
+        assertThat(actual).isEqualTo(expected);
+        then(articleRepository).should().count();
     }
 
     private UserAccount createUserAccount() {
