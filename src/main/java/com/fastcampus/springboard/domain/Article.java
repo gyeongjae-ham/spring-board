@@ -9,13 +9,13 @@ import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
 
-@Getter // 전체 레벨에서는 Setter를 설정하지 말자(데이터 보호를 위해서 필요한 값만)
-@ToString(callSuper = true) // 쉽게 볼 수 있도록, AuditingField 안까지 들어가서 잘 찍히도록 설정
-@Table(indexes = { // 빠르게 검색할 수 있도록 인덱스 설정
+@Getter
+@ToString(callSuper = true)
+@Table(indexes = {
         @Index(columnList = "title"),
         @Index(columnList = "hashtag"),
         @Index(columnList = "createdAt"),
-        @Index(columnList = "createdBy"),
+        @Index(columnList = "createdBy")
 })
 @Entity
 public class Article extends AuditingFields {
@@ -26,30 +26,28 @@ public class Article extends AuditingFields {
 
     @Setter
     @ManyToOne(optional = false)
-    private UserAccount userAccount;
+    @JoinColumn(name = "userId")
+    private UserAccount userAccount; // 유저 정보 (ID)
 
     @Setter
     @Column(nullable = false)
     private String title; // 제목
     @Setter
-    @Column(nullable = false, length = 10000) // nullable = true가 기본설정
+    @Column(nullable = false, length = 10000)
     private String content; // 본문
 
-    // @Column은 기본 설정을 변경하는 경우가 아니라면 생략이 가능하다
     @Setter
     private String hashtag; // 해시태그
 
-    // Jpa 양방향 설정
-    // mappedBy를 하지 않으면 양방향 관계의 두 테이블명을 합쳐서 테이블을 생성한다
-    // mappedBy로 article 테이블로부터 온 것이라고 표시해 주기
-    @ToString.Exclude // 순환 참조의 가능성이 있으므로 양방향 중에서 보통 one의 쪽에서 끊어준다
+    @ToString.Exclude
     @OrderBy("createdAt DESC")
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
     private final Set<ArticleComment> articleComments = new LinkedHashSet<>();
+
+
     protected Article() {
     }
 
-    // private 제어자로 막아놓고 팩토리 메서드로 편리하게 바로 생성하자
     private Article(UserAccount userAccount, String title, String content, String hashtag) {
         this.userAccount = userAccount;
         this.title = title;
@@ -57,13 +55,10 @@ public class Article extends AuditingFields {
         this.hashtag = hashtag;
     }
 
-    // 팩토리 메서드
     public static Article of(UserAccount userAccount, String title, String content, String hashtag) {
         return new Article(userAccount, title, content, hashtag);
     }
 
-    // 그냥 lombok의 EqualsAndHashCode를 사용하면 전체 필드를 비교하기 때문에
-    // Entity 클래스에서는 고유값인 id만 가지고 비교하기 위해서 따로 생성해 줌
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -75,4 +70,5 @@ public class Article extends AuditingFields {
     public int hashCode() {
         return Objects.hash(id);
     }
+
 }
