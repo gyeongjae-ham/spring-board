@@ -16,9 +16,8 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 @RepositoryRestResource
 public interface ArticleRepository extends
         JpaRepository<Article, Long>,
-        QuerydslPredicateExecutor<Article>, // Entity 클래스 안의 모든 필드에 대한 기본 검사 기능 제공
         ArticleRepositoryCustom,
-        // 검색 기능을 커스터마이징하기 위한 기능 제공
+        QuerydslPredicateExecutor<Article>,
         QuerydslBinderCustomizer<QArticle> {
 
     Page<Article> findByTitleContaining(String title, Pageable pageable);
@@ -29,17 +28,13 @@ public interface ArticleRepository extends
 
     @Override
     default void customize(QuerydslBindings bindings, QArticle root) {
-        bindings.excludeUnlistedProperties(true); // 선택한 필드들만 검색하도록 하는 메서드
-        bindings.including(root.title, root.content, root.hashtag, root.createdAt, root.createdBy); // 원하는 필드 선택
-
-        // like '${v}'
-        // bindings.bind(root.title).first(StringExpression::containsIgnoreCase);
-
-        // like '%${v}%'
+        bindings.excludeUnlistedProperties(true);
+        bindings.including(root.title, root.content, root.hashtag, root.createdAt, root.createdBy);
         bindings.bind(root.title).first(StringExpression::containsIgnoreCase);
         bindings.bind(root.content).first(StringExpression::containsIgnoreCase);
         bindings.bind(root.hashtag).first(StringExpression::containsIgnoreCase);
-        bindings.bind(root.createdBy).first(StringExpression::containsIgnoreCase);
         bindings.bind(root.createdAt).first(DateTimeExpression::eq);
+        bindings.bind(root.createdBy).first(StringExpression::containsIgnoreCase);
     }
+
 }
