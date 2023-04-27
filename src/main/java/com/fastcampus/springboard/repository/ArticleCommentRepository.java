@@ -12,7 +12,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import java.util.List;
 
-@RepositoryRestResource // spring data rest 사용 어노테이션
+@RepositoryRestResource
 public interface ArticleCommentRepository extends
         JpaRepository<ArticleComment, Long>,
         QuerydslPredicateExecutor<ArticleComment>,
@@ -22,13 +22,11 @@ public interface ArticleCommentRepository extends
 
     @Override
     default void customize(QuerydslBindings bindings, QArticleComment root) {
-        bindings.excludeUnlistedProperties(true); // 선택한 필드들만 검색하도록 하는 메서드
-        bindings.including(root.content, root.createdAt, root.createdBy); // 원하는 필드 선택
-
-        // like '%${v}%'
+        bindings.excludeUnlistedProperties(true);
+        bindings.including(root.content, root.createdAt, root.createdBy);
         bindings.bind(root.content).first(StringExpression::containsIgnoreCase);
-        bindings.bind(root.createdBy).first(StringExpression::containsIgnoreCase);
         bindings.bind(root.createdAt).first(DateTimeExpression::eq);
+        bindings.bind(root.createdBy).first(StringExpression::containsIgnoreCase);
     }
 
 }

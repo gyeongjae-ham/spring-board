@@ -28,7 +28,7 @@ public record ArticleResponse(
                 dto.title(),
                 dto.content(),
                 dto.hashtag(),
-                dto.createAt(),
+                dto.createdAt(),
                 dto.userAccountDto().email(),
                 nickname
         );
