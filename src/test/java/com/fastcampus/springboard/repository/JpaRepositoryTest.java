@@ -1,20 +1,24 @@
 package com.fastcampus.springboard.repository;
 
-import com.fastcampus.springboard.config.JpaConfig;
 import com.fastcampus.springboard.domain.Article;
 import com.fastcampus.springboard.domain.UserAccount;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
+import org.springframework.data.domain.AuditorAware;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("JPA 연결 테스트")
-@Import(JpaConfig.class) // JpaConfig에 대해서 못 읽어오니까 auditing 기능을 위해서 import
+@Import(JpaRepositoryTest.TestJpaConfig.class) // JpaConfig에 대해서 못 읽어오니까 auditing 기능을 위해서 import
 @DataJpaTest // Test Method 단위로 트랜잭션이 걸리도록
 class JpaRepositoryTest {
 
@@ -94,4 +98,16 @@ class JpaRepositoryTest {
         assertThat(articleCommentRepository.count()).isEqualTo(previousArticleCommentCount - deletedCommentsSize);
     }
 
+
+    // JpaRepository를 테스트할 때, Security 설정 때문에 AuditorAware가 제대로 동작하지 않아서 생긴 문제이므로
+    // Test 때에만 Security를 무시하게끔 해주면 된다
+    @EnableJpaAuditing
+    @TestConfiguration
+    public static class TestJpaConfig {
+
+        @Bean
+        public AuditorAware<String> auditorAware() {
+            return () -> Optional.of("luca");
+        }
+    }
 }
