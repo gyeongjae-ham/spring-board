@@ -1,60 +1,58 @@
-# project-board
+# 게시판 서비스 - 패스트캠퍼스, 10개 프로젝트로 완성하는 백엔드 웹개발
 
-## 게시판 서비스 프로젝트의 목표
+[![GitKraken shield](https://img.shields.io/badge/GitKraken-Legendary%20Git%20Tools-teal?style=plastic&logo=gitkraken)](http://gitkraken.link/uno)
 
-- 누구나 이해하기 쉬운 소재로 명확한 기능 요구사항을 만든다.
-- 요구사항을 구현하는데 도움이 되는 각종 문서 작업을 한다.
-- 자바+스프링 부트로 프로젝트 요구사항을 실제로 구현하는 기술적인 방법을 익힌다.
-- 최신 버전의 기술을 사용해 보면서 기술 동향을 파악하고, 새로운 문제와 해결 방법을 확인한다.
-- 기획과 문서 작성부터 개발, 형상관리, 테스트, 배포까지 개발 프로세스 전반을 경험한다.
+가장 기본적이고 보편적인 게시판 기능을 둘러볼 수 있는 서비스입니다. 2022년 6월 기준 가장 최신의 스프링 부트와 관련 기술들, 자바 17 기능들, 개발 도구들을 경험할 수 있도록 만들어졌습니다. [어드민 프로젝트](https://github.com/djkeh/fastcampus-project-board-admin)의 개발과 기능 사용은 이 프로젝트와 연관이 있습니다.
 
-## 세부 기능으로부터 선택을 예상하는 기술들
+스프링의 학습을 위해 패스트캠퍼스 강의 내용을 바탕으로 만들어진 프로젝트입니다.
 
-- Java + Spring Boot 기반에서 선택
-- 웹 서비스 제공 -> Spring Web
-- 도메인의 설계와 DB 저장 -> Spring Data JPA, H2 Database, MySQL Driver
-- JSON API 로 데이터 제공 -> Rest Repositories, Rest Repositories HAL Explorer
-- 웹 화면: 강의 목표에 맞춰 서버 사이드 렌더링으로 접근 -> 템플릿 엔진 -> Thymeleaf
-- 디자인 요소 -> Bootstrap 5.2
-- 적절한 입출력 데이터의 검증 -> Validation
-- 인증 기능 -> Spring Security
-- 생산성 -> Lombok, Spring Boot DevTools, Spring Boot Actuator
+## 개발 환경
 
-## 깃 브랜치를 운영하는 방법론
+* Intellij IDEA Ultimate 2022.1.1 ~ 2022.1.3
+* Java 17
+* Gradle 7.4.1
+* Spring Boot 2.7.0
 
-- gitflow: master, develop, feature, release, hotfix 브랜치를 설정하고 운영하는 방식
-- github flow: main(master), feature 브랜치만으로 운영하는 방식
+## 기술 세부 스택
 
-## 브랜치 전략을 세우는 이유와 요령
+Spring Boot
 
-- 하나의 프로젝트 소스코드를 여러 개발자가 다루면서 발생하는 각종 부작용을 해결하자
-- 개발 협업을 원활하게 하기 위한 약속
-- 전략을 세울 때 고려할 수 있는 요소들
-- 이 브랜치는 제품으로 내보낼 수 있는가?
-- 이 브랜치는 빌드 실패를 허용하는가?
-- 이 브랜치는 테스트 실패를 허용하는가?
-- 이 브랜치는 임시로 운영하는가? 유지하지 않고 수시로 삭제하는가?
+* Spring Boot Actuator
+* Spring Web
+* Spring Data JPA
+* Rest Repositories
+* Rest Repositories HAL Explorer
+* Thymeleaf
+* Spring Security
+* H2 Database
+* MySQL Driver
+* Lombok
+* Spring Boot DevTools
+* Spring Configuration Processor
 
-## 개발의 목적 - 고객의 문제를 해결 (+ 하는 과정을 공부)
+그 외
 
-- 고객의 니즈와 문제를 정리
-- 고객이 원치 않거나 고객의 문제를 해결해줄 수 없는 개발은 의미가 없다
-- 공부가 목표 - 이 부분에서 다소 자유롭게 (실패가 용인됨)
-- 문제 -> 요구사항 -> 기능(feature) 도출 -> 구현 방안의 기획 -> 개발 계획 수립 -> 실행
-- 위 모든 과정을 강의와 함께 공부, 연습해보자
-- 제약사항: 강의 프로젝트이므로, 기술 스택이 어느 정도 정해져 있음
-- 제약==집중과효율
-- 공부 목표의 특전: 가능한 한 최신 버전의 기술을 사용
-- 최신 동향 파악
-- 아직 밝혀지지 않은 이슈를 직접 경험 -> 해결 방법 찾기 -> 할 수 있다면 해결까지
+* QueryDSL 5.0.0
+* Bootstrap 5.2.0-Beta1
+* Heroku
 
-## 다양한 형태의 문서 작업 - 원활한 협업의 초석
+## 데모 페이지
 
-- 문서를 통해 개발할 프로젝트의 목적, 내용, 진행상황을 공유 (왜 하는지가 특히 중요)
-- 무엇을, 어떻게: 업무의 가이드. 동료의 생산성을 높여줌
-- 왜: 함께 움직이는 원동력, 동료가 더 나은 방법을 제안하거나, 내 생각의 오류를 잡아줌
-- 내용이 구체적일 수록, 동료들의 프로젝트 개발 내용이 잘 동기화되고 진행이 막히지 않음 • 주의 - 과도한 정보의 범람, 업데이트되지 않았거나 잘못된 정보가 주는 혼란
-- 백업이 용이: 문서는 지나간 일을 다시 꺼내야 할 때 쉽게 찾게 도와줌
-- 기억은 짧고 왜곡되지만, 문서는 수정 가능하고 발전하며 오래 감
-- 업무 기록을 남김으로써 업무 진척 상황과 내 성과가 잘 드러남
+비용 절감을 위해 클라우드 서버가 자동 슬립 모드로 설정되어 있습니다. 링크를 클릭하면 서비스가 깨어납니다. 따라서 첫번째 클릭 반응이 15초 이상으로 다소 늦을 수 있습니다.
+이후에는 비교적 원활하게 서비스를 구경하실 수 있습니다.
 
+*  https://project-board-uno.herokuapp.com/
+
+## 강의 찾아가기
+
+게시판 서비스는 강의와 공부 목적으로 만들어진 프로젝트입니다.
+따라서 강의의 어떤 시점으로든 코드를 찾아가서 쉽게 관찰할 수 있도록 되어 있습니다.
+특정 강의 시점의 소스코드를 좀 더 편리하게 확인하고 싶다면 릴리즈 탭을 확인해 보세요.
+
+* https://github.com/djkeh/fastcampus-project-board/releases
+
+## Reference
+
+* 유즈케이스 다이어그램: [#4](https://github.com/djkeh/fastcampus-project-board/issues/4), https://viewer.diagrams.net/#Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fdjkeh%2Ffastcampus-project-board%2Fmain%2Fdocument%2Fuse-case.svg
+* API Endpoint 구글 시트: [#1](https://github.com/djkeh/fastcampus-project-board/issues/1), https://docs.google.com/spreadsheets/d/1S2FW7_LlePGF95strSYFJEsEQKoyZ9nGHWM8wZgFmSU/edit?usp=sharing
+* 어드민 서비스: https://github.com/djkeh/fastcampus-project-board-admin
